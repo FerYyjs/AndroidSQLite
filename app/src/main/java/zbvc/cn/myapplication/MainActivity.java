@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import zbvc.cn.myapplication.bean.Person;
 import zbvc.cn.myapplication.service.PersonService;
@@ -38,7 +39,12 @@ EditText etnumber,etname,etage,etphone;
                 break;
             case R.id.btn_del :
                 id=etnumber.getText().toString();
-                service.delete(Integer.parseInt(id));
+                if (service.delete(Integer.parseInt(id)) > 0){
+                    Toast.makeText(this,"Success",Toast.LENGTH_SHORT);
+                }
+                else{
+                    Toast.makeText(this,"Faild",Toast.LENGTH_SHORT);
+                }
                 break;
             case R.id.btn_update :
                 break;
