@@ -13,9 +13,11 @@ import zbvc.cn.myapplication.sql.DbOpenHelper;
 
 public class PersonService {
     DbOpenHelper helper;
+
     public PersonService(Context applicationContext){
         helper =new DbOpenHelper(applicationContext);
     }
+
     public void insert(Person person){
         SQLiteDatabase db=helper.getReadableDatabase();
 //        db.execSQL("insert into person(name,age,phone) values(?,?,?)",new Object[]{person.getName(),person.getAge(),person.getPhone()});
