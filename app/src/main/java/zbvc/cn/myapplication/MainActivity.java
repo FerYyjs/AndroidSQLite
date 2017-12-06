@@ -26,7 +26,7 @@ EditText etnumber,etname,etage,etphone;
         service=new PersonService(getApplicationContext());
     }
     public void onclick(View v){
-        String name,age,id,phone;
+        String name = null,age = null,id = null,phone = null;
         Person person=new Person();
         switch (v.getId()){
             case R.id.btn_insert :
@@ -47,6 +47,13 @@ EditText etnumber,etname,etage,etphone;
                 }
                 break;
             case R.id.btn_update :
+                person = new Person(Integer.parseInt(id), name, Integer.parseInt(age), phone);
+                if (service.update(person) > 0){
+                    Toast.makeText(this,"Success",Toast.LENGTH_SHORT);
+                }
+                else{
+                    Toast.makeText(this,"Faild",Toast.LENGTH_SHORT);
+                }
                 break;
             case R.id.btn_select :
                 break;

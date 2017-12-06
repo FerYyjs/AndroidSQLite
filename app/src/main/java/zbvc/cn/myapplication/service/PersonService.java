@@ -31,4 +31,14 @@ public class PersonService {
         int len = db.delete("person","personid=?",new String[]{Integer.toString(i)});
         return len;
     }
+
+    public int update(Person p){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name", p.getName());
+        cv.put("age", p.getAge());
+        cv.put("phone", p.getPhone());
+        int len = db.update("person", cv, "personid=?", new String[]{p.getId().toString()});
+        return len;
+    }
 }
