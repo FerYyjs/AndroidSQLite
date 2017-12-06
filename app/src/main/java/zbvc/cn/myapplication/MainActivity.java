@@ -48,8 +48,8 @@ EditText etnumber,etname,etage,etphone;
                 }
                 break;
             case R.id.btn_update :
-                //Person mp = new Person(Integer.parseInt(id), name, Integer.parseInt(age), phone);
-                len = service.update(person);
+                Person mp = new Person(Integer.parseInt(id), name, Integer.parseInt(age), phone);
+                len = service.update(mp);
                 if (len > 0){
                     Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show();
                 }
