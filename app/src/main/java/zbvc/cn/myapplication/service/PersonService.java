@@ -2,6 +2,7 @@ package zbvc.cn.myapplication.service;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import zbvc.cn.myapplication.bean.Person;
@@ -43,4 +44,50 @@ public class PersonService {
         int len = db.update("person", cv, "personid=?", new String[]{p.getId().toString()});
         return len;
     }
+
+    public Person find(String id){
+        SQLiteDatabase db = helper.getReadableDatabase();
+//        db.rawQuery("select * from person where personid=?", new String[]{id});
+        Cursor c = db.query("person", null, "personid=?", new String[]{id},null, null, null);
+        if (c.moveToFirst()){
+            int personid = c.getInt(c.getColumnIndex("personid"));
+            String name = c.getString(c.getColumnIndex("name"));
+            int age = c.getInt(c.getColumnIndex("age"));
+            String phone = c.getString(c.getColumnIndex("phone"));
+            return new Person(personid, name, age, phone);
+        }
+        c.close();
+        return null;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

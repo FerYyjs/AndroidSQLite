@@ -26,36 +26,47 @@ EditText etnumber,etname,etage,etphone;
         service=new PersonService(getApplicationContext());
     }
     public void onclick(View v){
+        int len = 0;
         String name = null,age = null,id = null,phone = null;
-        Person person=new Person();
+        name =etname.getText().toString();
+        age=etage.getText().toString();
+        id=etnumber.getText().toString();
+        phone=etphone.getText().toString();
+        Person person=new Person(name,Integer.parseInt(age),phone);
         switch (v.getId()){
             case R.id.btn_insert :
-                name =etname.getText().toString();
-                 age=etage.getText().toString();
-                id=etnumber.getText().toString();
-                phone=etphone.getText().toString();
-               person=new Person(name,Integer.parseInt(age),phone);
                 service.insert(person);
                 break;
             case R.id.btn_del :
                 id=etnumber.getText().toString();
-                if (service.delete(Integer.parseInt(id)) > 0){
-                    Toast.makeText(this,"Success",Toast.LENGTH_SHORT);
+                len = service.delete(Integer.parseInt(id));
+                if (len > 0){
+                    Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(this,"Faild",Toast.LENGTH_SHORT);
+                    Toast.makeText(this,"Faild",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_update :
-                person = new Person(Integer.parseInt(id), name, Integer.parseInt(age), phone);
-                if (service.update(person) > 0){
-                    Toast.makeText(this,"Success",Toast.LENGTH_SHORT);
+                //Person mp = new Person(Integer.parseInt(id), name, Integer.parseInt(age), phone);
+                len = service.update(person);
+                if (len > 0){
+                    Toast.makeText(this,"Success",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(this,"Faild",Toast.LENGTH_SHORT);
+                    Toast.makeText(this,"Faild",Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.btn_select :
+            case R.id.btn_select:
+                Person p = service.find(id);
+                if (p == null)
+                {
+                    Toast.makeText(this,"Item Count: 0",Toast.LENGTH_SHORT);
+                    return;
+                }
+                etname.setText(p.getName());
+                etage.setText(p.getAge());
+                etphone.setText(p.getPhone());
                 break;
             case R.id.btn_clear:
                 etname.setText("");
@@ -65,3 +76,25 @@ EditText etnumber,etname,etage,etphone;
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
