@@ -26,8 +26,9 @@ public class PersonService {
         db.insert("person",null,values);
     }
 
-    public void delete(int i) {
+    public int delete(int i) {
         SQLiteDatabase db=helper.getReadableDatabase();
-        db.delete("person","personid=?",new String[]{Integer.toString(i)});
+        int len = db.delete("person","personid=?",new String[]{Integer.toString(i)});
+        return len;
     }
 }
